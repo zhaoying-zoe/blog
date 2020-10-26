@@ -1,0 +1,130 @@
+/*顶部导航开始*/
+    .container .container-fluid{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    nav .container .nav li a{
+        font-size: 14px;
+    }
+/*a链接样式 ::: 开始*/
+    .navbar .container .container-fluid a{
+        text-decoration: none;
+        color: #818181;
+    }
+    .navbar .container .container-fluid a:hover{
+        text-decoration: none;
+        color: #f00;
+    }
+    .navbar .container .container-fluid .nav-active a{
+        color: #f00;
+    }
+/*a链接样式 ::: 结束; */
+/*顶部导航结束*/
+
+/* 轮播图开始 */
+    .carousel .carousel-inner{
+        /* width: 750px; */
+        height: 420px;
+    }
+    .carousel-inner img{
+        width: 100%;
+        height: 100% !important;
+    }
+/* 轮播图结束 */
+
+/* 表单登陆开始 */
+    .form-registered,.form-login{
+        width: 360px;
+        height: 260px;
+        padding-top: 20px;
+        border: 1px solid #dedede;
+        background-color: #fff;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+    .form-login{
+        padding-top: 50px;
+    }
+    .form-group .form-control{
+        width: 150px;
+    }
+    .form-group label{
+        display: inline-block;
+        text-align: right;
+        line-height: 34px;
+        margin-left: 30px;
+    }
+    .col-md-4 .btn,.btn-default{
+        margin-left: 120px;
+        width: 150px;
+        box-sizing: border-box;
+        background-color: #2f79c0;
+        color: #fff;
+    }
+    .col-md-4 .btn-default:hover{
+        color: #fff;
+        background-color: rgba(7, 84, 192, 0.815);
+    }
+    .form-login-active,.form-registered-active{
+        margin-left: 170px;
+        font-size: 14px;
+    }
+    .to-registered,.to-login{
+        margin-top: 15px;
+    }
+/* 表单登陆结束 */
+
+/* 广告部分开始 */
+    .ad-1,.ad-2{
+        margin-top: 20px;
+        width: 360px;
+        height: 200px;
+    }
+    .ad-1 img,.ad-2 img{
+        width: 100%;
+        height: 100%;
+    }
+/* 广告部分结束 */
+
+/* 博主介绍开始 */
+    .panel-group{
+        margin-top: 20px;
+    }
+    .panel-heading{
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .head-portrait,.panel-introduce{
+        display: inline-block;
+    }
+    .head-portrait img{
+        width: 100px;
+        height: 100px;
+    }
+    .panel-body .panel-introduce{
+        width: 220px;
+    }
+/* 博主介绍结束 */
+
+/* 关注我开始 */
+    .erweima{
+        width: 330px;
+        height: 330px;
+    }
+/* 关注我结束 */
+
+/* 文章列表开始 */
+    .panel-article{
+        margin-top: 20px;
+    }
+    .glyphicon{
+        margin-left: 15px;
+    }
+    .panel-footer .text-muted{
+        color: #272b14;
+        margin-left: 4px;
+    }
+    h3.panel-title a{
+        font-size: 16px;
+    }
+/* 文章列表结束 */

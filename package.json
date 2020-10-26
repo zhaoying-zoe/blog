@@ -18,9 +18,8 @@
   },
   "homepage": "https://github.com/zhaoying-zoe/blog#readme",
   "dependencies": {
-    "bootstrap": "^3.4.1",
     "express": "^4.17.1",
-    "jquery": "^3.5.1",
-    "mongoose": "^5.10.10"
+    "mongoose": "^5.10.10",
+    "swig": "^1.4.2"
   }
 }

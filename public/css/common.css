@@ -1,0 +1,34 @@
+	body{
+		font-size: 14px;
+		background-color: #f6f6f6!important;/* 博客背景色 */
+	}
+/*a链接相关开始*/
+	a{
+		font-size: 12px;
+		text-decoration: none;
+		color: #f5bed5;
+	}
+	a.link:hover{
+		color: #f5bed5;
+		text-decoration: none;
+	}
+/*a链接相关结束*/
+
+/*浮动相关开始*/
+	.fl{
+		float: left;
+	}
+	.fr{
+		float: right;
+	}
+	.clearfix:after{
+		content: "";
+		clear: both;
+		display: block;
+		height: 0;
+		visibility: hidden;
+	}
+	.clearfix{
+		*zoom:1;
+	}
+/*浮动相关结束*/

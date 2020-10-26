@@ -2,10 +2,12 @@
 blog for zhaoying
 
 ## Technology stack
-### nodejs
-### express
-### mongoose
-### Bootstrap3
+### nodejs 后台
+### express 用来搭建后台
+### mongoose 
+### Bootstrap@3
+### jquery@3
+### swig模板引擎
 
 ## Folder description
 ### views: 模板
