@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap.min.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <!-- 宽度改变时,出现按钮 -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">我的个人博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-active"><a class="link" href="/">首页</a></li>
+                        <li><a class="link" href="#">HTML/CSS</a></li>
+                        <li><a class="link" href="#">JavaScript</a></li>
+                        <li><a class="link" href="#">学无止境</a></li>
+                        <li><a class="link" href="#">关于我们</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- 栅格系统 -->
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}{% endblock %}
+                </div>
+                <div class="col-md-4">
+                    <!-- 登陆成功面板 用户面板 -->
+                    <div class="user-panel" id='user-info' style="display: none;">
+                        欢迎<span> Tom</span>
+                        <a class="link" href="/home">进入个人中心</a>
+                        <a class="link" href="javascript:;" id='logout'>退出</a>
+                        <!-- 错误信息提示 -->
+                        <div class="form-group" >
+                            <div class="col-sm-12">
+                              <p class="text-danger err"></p>
+                            </div>
+                        </div>             
+                    </div>
+                    <!-- 登陆表单 -->
+                    <form class="form-login" id="form-login">
+                        <div class="form-group">
+                            <label class="col-md-3" for="exampleInputEmail1">用户名</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入用户名">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="exampleInputPassword1">密码</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码">
+                        </div>
+                        <button type="button" class="btn btn-default">登陆</button>
+                        <div class="to-registered">
+                            <a class="form-login-active" id="register" href="javascript:;">没有账号,去注册</a>
+                        </div>
+                        <!-- 错误信息提示 -->
+                        <div class="form-group" >
+                            <div class="col-sm-12">
+                              <p class="text-danger err"></p>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- 注册表单 -->
+                    <form class="form-registered" id="form-registered" style="display: none;">
+                        <div class="form-group">
+                            <label class="col-md-3" for="registered1">用户名</label>
+                            <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="registered2">密码</label>
+                            <input type="password" class="form-control" id="password1" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="registered3">重复密码</label>
+                            <input type="password" class="form-control" id="password2" placeholder="请再次输入密码">
+                        </div>
+                        <button type="button" id="submit-register" class="btn btn-default">注册</button>
+                        <div class="to-login">
+                            <a class="form-registered-active" id="login" href="javascript:;">已有账号,去登陆</a>
+                        </div>
+                        <!-- 错误信息提示 -->
+                        <div class="form-group" >
+                            <div class="col-sm-12">
+                              <p class="text-danger err"></p>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- 广告部分 -->
+                    <div class="ad-1">
+                        <a href="javascript:;" target="_blank">
+                            <img src="img/ad-1.jpg" alt="广告不见了" class="img-rounded">
+                        </a>
+                    </div>
+                    <div class="ad-2">
+                        <a href="javascript:;" target="_blank">
+                            <img src="img/ad-2.jpg" alt="广告不见了" class="img-rounded">
+                        </a>
+                    </div>
+                    <!-- 博主介绍 -->
+                    <div class="panel-group bozhu" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                博主介绍
+                            </div>
+                            <div class="panel-body">
+                                <div class="head-portrait">
+                                    <img src="img/carousel-logo.jpg" alt="博主头像" class="img-rounded">
+                                </div>
+                                <div class="panel-introduce">
+                                    <div class="panel-name">宇千寻</div>
+                                    <div class="panel-decs">
+                                        90后菜鸟!19年加入web,不断学习的同时分享着自己的经验。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 文章排行 -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">文章排行</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <a class="link" target="_blank" href="javascript:;">1</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a class="link" target="_blank" href="javascript:;">1</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a class="link" target="_blank" href="javascript:;">1</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a class="link" target="_blank" href="javascript:;">1</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a class="link" target="_blank" href="javascript:;">1</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 关注我 -->
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">关注我</div>
+                            <div class="panel-body">
+                                <img class="erweima" src="img/carousel-erweima.jpg" alt="博主头像">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <script src="lib/jquery/jquery-3.5.1.min.js"></script>
+    <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+</body>
+{% block footer %}{% endblock %}
+</html>

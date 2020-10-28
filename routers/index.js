@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express();
+const express = require('express');// 引入express
+const router = express();// 创建实例
 
 // 首页
 router.get('/',(req,res)=>{
