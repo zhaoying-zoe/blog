@@ -2,10 +2,10 @@
 blog for zhaoying
 
 ## Technology stack
-### nodejs 后台
-### express 用来搭建后台
+### nodejs 充当后台服务
+### express 用来搭建后台 (路由模块化)
 ### mongoose 
-### Bootstrap@3
+### Bootstrap@3 前台UI框架
 ### jquery@3
 ### swig模板引擎
 
