@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 const swig = require('swig')
 // 定义端口号
 const port = 3000;
+// 引入express第三方插件body-parser
+const bodyParser = require('body-parser');
 
 // express处理静态资源①
 app.use(express.static('public'));
@@ -52,10 +54,20 @@ app.set('views', './views')
 app.set('view engine', 'html')
 /* -----------------------配置模板引擎结束-------------------------- */
 
+/*------------------------配置body-parser中间件开始-------------------------*/
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+// post和put请求传递的参数都保存在req.body上
+/*------------------------配置body-parser中间件结束-------------------------*/
+
 // 用app.use(PATH,router对象)来使用导出的router对象
 // 处理主页路由
 app.use('/',require('./routers/index.js'));
-
+// 处理注册路由
+app.use('/user',require('./routers/user.js'));
 // 
 app.listen(port, () => {
     console.log(`server is running at http://127.0.0.1:${port}`);
