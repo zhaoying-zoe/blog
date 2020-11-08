@@ -1,5 +1,5 @@
 # blog
-blog for zhaoying
+blog for ZH
 
 ## Technology stack
 ### nodejs 充当后台服务
@@ -9,6 +9,7 @@ blog for zhaoying
 ### Bootstrap@3 前台UI框架
 ### jquery@3
 ### swig模板引擎
+### 保存用户状态信息:利用中间件插件生成cookies并存到req.cookies上
 
 ## Folder description
 ### views: 模板

@@ -44,8 +44,9 @@
                     {% block content %}{% endblock %}
                 </div>
                 <div class="col-md-4">
+                {% if userInfo._id %}
                     <!-- 登陆成功面板 用户面板 -->
-                    <div class="user-panel" id='user-info' style="display: none;">
+                    <div class="user-panel" id='user-info'>
                         欢迎<span> Tom</span>
                         <a class="link" href="/home">进入个人中心</a>
                         <a class="link" href="javascript:;" id='logout'>退出</a>
@@ -56,6 +57,7 @@
                             </div>
                         </div>             
                     </div>
+                    {% else %}
                     <!-- 登陆表单 -->
                     <form class="form-login" id="form-login">
                         <div class="form-group">
@@ -66,7 +68,7 @@
                             <label class="col-md-3" for="exampleInputPassword1">密码</label>
                             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码">
                         </div>
-                        <button type="button" class="btn btn-default">登陆</button>
+                        <button type="button" id="submit-login" class="btn btn-default">登陆</button>
                         <div class="to-registered">
                             <a class="form-login-active" id="register" href="javascript:;">没有账号,去注册</a>
                         </div>
@@ -77,6 +79,7 @@
                             </div>
                         </div>
                     </form>
+                    {% endif %}
                     <!-- 注册表单 -->
                     <form class="form-registered" id="form-registered" style="display: none;">
                         <div class="form-group">
