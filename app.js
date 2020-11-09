@@ -117,9 +117,13 @@ app.use('',(req,res,next) => {
 
 // 用app.use(PATH,router对象)来使用导出的router对象
 // 处理主页路由
-app.use('/',require('./routers/index.js'));
+app.use('/',require('./routers/index'));
 // 处理注册、登陆路由
-app.use('/user',require('./routers/user.js'));
+app.use('/user',require('./routers/user'));
+// 处理管理员页面
+app.use('/admin',require('./routers/admin'));
+
+
 // 
 app.listen(port, () => {
     console.log(`server is running at http://127.0.0.1:${port}`);

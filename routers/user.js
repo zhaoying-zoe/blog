@@ -20,7 +20,8 @@ router.post('/register',(req,res) => {
             // 3.验证通过,插入数据
             userModel.insertMany({
                 username:username,
-                password:hmac(password)
+                password:hmac(password),
+                // isAdmin:true, // 注册管理员
             })
             .then(result=>{
                 res.json({
