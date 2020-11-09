@@ -12,6 +12,10 @@ const port = 3000;
 const bodyParser = require('body-parser');
 // 引入cookie 保存用户状态信息
 const Cookies = require('cookies');
+// 引入express-session 保存用户状态信息
+const session = require('express-session');
+// 引入connect-mongo
+const MongoStore = require("connect-mongo")(session);
 
 // express处理静态资源①
 app.use(express.static('public'));
@@ -66,6 +70,7 @@ app.use(bodyParser.json())
 /*------------------------配置body-parser中间件结束-------------------------*/
 
 /*------------------------利用中间件来生成cookie开始--------------------------*/
+/*
 app.use('',(req,res,next) => {
 	// 在req上生成cookie实例,这样所有的路由都可以通过req.cookie操作cookie
 	req.cookies = new Cookies(req,res);
@@ -78,6 +83,31 @@ app.use('',(req,res,next) => {
 	}
 	// 把cookie信息保存到req.userInfo上,这样的话所有的路由都能通过req.userInfo拿到用户状态信息
 	req.userInfo = userInfo;
+	
+	next();
+})
+*/
+
+// 配置session
+app.use(session({
+    //设置cookie名称
+    name:'zyid',
+    //用它来对session cookie签名，防止篡改
+    secret:'zoe',
+    //强制保存session即使它并没有变化
+    resave: true,
+    //强制将未初始化的session存储
+    saveUninitialized: true,
+    //如果为true,则每次请求都更新cookie的过期时间
+    rolling:true,
+    //cookie过期时间 1天
+    cookie:{maxAge:1000*60*60*24},
+    //设置session存储在数据库中
+    store:new MongoStore({ mongooseConnection: mongoose.connection })
+}))
+app.use('',(req,res,next) => {
+	// 把cookie信息保存到req.userInfo上,这样的话所有的路由都能通过req.userInfo拿到用户状态信息
+	req.userInfo = req.session.userInfo || {};
 	
 	next();
 })

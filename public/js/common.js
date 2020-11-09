@@ -131,10 +131,27 @@
                     }
                 },
                 error(err){
-                    $errMsg.html('请求数据失败,请稍后再试。');
+                    $errMsg.html('请求数据失败,请稍后再试');
                 }
             })
         }
     })
 
+    // 4.用户退出逻辑
+    $('#logout').on('click',function(){
+        $.ajax({
+            url:'/user/logout',
+            type:'get'
+        })
+        .done(function(data){
+            if(data.code == 0){
+                alert(data.message)
+                window.location.href = '/';
+            }
+        })
+        .fail(function(err){
+            console.log(err);
+            $userInfo.find('.err').html('退出失败,请稍后再试');
+        })
+    })
 })(jQuery)

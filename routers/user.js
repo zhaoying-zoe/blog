@@ -55,9 +55,13 @@ router.post('/login',(req,res) => {
     userModel.findOne({username,password:hmac(password)},'-password')
     .then(result => { // 数据库有该用户
         if(result){
+            /*
             // 用户登录成功时生成cookie 
             // set是设置:set(键,值) 需要把值从对象转化为字符串
             req.cookies.set('userInfo',JSON.stringify(result));
+            */
+            // 用户登录成功时生成cookie 返回前台的是一个id而不是明文cookie
+            req.session.userInfo = result;
 
             
             res.json({
@@ -81,5 +85,18 @@ router.post('/login',(req,res) => {
     })
 })
 
-// 导出
+// 处理退出路由
+router.get('/logout',(req,res) => {
+    // 清除cookie
+    // req.cookies.set('userInfo',null);
+
+
+    // 销毁session
+    req.session.destroy();
+    res.json({
+        code:0,
+        message:'退出成功'
+    })
+})
+// 导出路由
 module.exports = router;
