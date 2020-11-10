@@ -19,7 +19,9 @@ router.use('/',(req,res,next) => {
 // 处理管理员页面
 router.use('/',(req,res) => {
     // 管理员页面
-    res.send('this is admin page');
+    res.render('admin/index',{
+        userInfo:req.userInfo,
+    });
 })
 
 
