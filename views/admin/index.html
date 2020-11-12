@@ -1,56 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% extends './layout.html' %}
 
-    <title>管理员首页</title>
+{% block header %}
+    欢迎使用个人博客后台管理系统
+{% endblock %}
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap.min.css">
-
-    <!-- Custom styles for this template -->
-    <link href="lib/bootstrap-3.3.7/css/dashboard.css" rel="stylesheet">
-  </head>
-
-  <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      	<div class="container-fluid">
-			<div class="navbar-header">
-			<a class="navbar-brand" href="#">欢迎来到管理员中心首页</a>
-			</div>
-          	<div class="dropdown">
-				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-					选项
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					<li><a href="#">退出登录</a></li>
-				</ul>
-          	</div>
-      	</div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">文章列表 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">分类列表</a></li>
-          </ul>
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    用户数
+                </div>
+                <div class="panel-footer">
+                    {{ userCount }}
+                </div>
+            </div>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">管理员中心首页</h1>
-
-          </div>
+        <div class="col-md-4">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    分类数
+                </div>
+                <div class="panel-footer">
+                    11
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="col-md-4">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    文章数
+                </div>
+                <div class="panel-footer">
+                    11
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="lib/jquery/jquery-3.5.1.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-  </body>
-</html>
+{% endblock %}

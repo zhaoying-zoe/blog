@@ -17,12 +17,34 @@ router.use('/',(req,res,next) => {
 })
 
 // 处理管理员页面
-router.use('/',(req,res) => {
+router.get('/', async (req,res) => {
+    //获取用户总算
+    const userCount = await userModel.estimatedDocumentCount();
+
     // 管理员页面
     res.render('admin/index',{
         userInfo:req.userInfo,
+        userCount:userCount, // 用户总数
     });
 })
+
+// 处理管理员用户管理路由
+router.get('/users',(req,res) => {
+    // 
+    userModel.find({},'-password')
+    .then(data=>{
+        // console.log(data);
+        const users = data;
+        res.render('admin/user_list',{
+            userInfo:req.userInfo,
+            users:users, // 返回用户列表
+        })
+    })
+    .catch(err=>{
+        console.log('get users err',err);
+    })
+})
+
 
 
 // 导出路由
