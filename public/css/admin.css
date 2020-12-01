@@ -2,6 +2,11 @@
 .container-fluid .dropdown .btn-default{
     width: 158px;
 }
-
+.table-striped{
+    margin-bottom: 300px;
+}
+.table-responsive{
+    margin-top: 20px;
+}
 /*管理员页面 退出按钮选项样式 结束*/
 

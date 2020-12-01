@@ -29,7 +29,7 @@ router.get('/', async (req,res) => {
 })
 
 // 处理用户管理路由
-router.get('/users',(req,res) => {
+router.get('/user',(req,res) => {
     // 分页分析:
     // 前提条件:得知道获取第几页,前台发送参数    page = req.query.page
     // 约定:每一页显示多少条数据                limit = 2
@@ -82,6 +82,7 @@ router.get('/users',(req,res) => {
                 users:users, // 返回用户列表
                 page:page,// 返回当前页
                 list:list,// 返回分页个数
+                pages:pages,// 返回总页数
             })
         })
         .catch(err=>{

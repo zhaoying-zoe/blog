@@ -122,6 +122,8 @@ app.use('/',require('./routers/index'));
 app.use('/user',require('./routers/user'));
 // 处理管理员页面
 app.use('/admin',require('./routers/admin'));
+// 处理分类管理页面
+app.use('/category',require('./routers/category'));
 
 
 // 

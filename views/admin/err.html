@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends './err_layout.html' %}
+{% block title %}
     <title>您的请求出错啦!</title>
-    <link rel="stylesheet" type="text/css" href="css/err.css" />
-</head>
-<body style="background:#0186a7;">
+{% endblock %}
+
+{% block content %}
     <!---404--->
     <div class="error_new_bg pr">
         <div class="error_new_content">
@@ -22,7 +19,7 @@
      
                     <p class="error_new_right_btn pr">
                         <a href="/" class="type-2 type-3">
-                            <i> 返回首页</i>
+                            <i> 返回首页 </i>
                             <i> 返回首页 </i>
                             <i> 返回首页 </i>
                             <i> 返回首页 </i>
@@ -32,6 +29,5 @@
             </div>
         </div>
     </div>
-    
-</body>
-</html>
+{% endblock %}
+
