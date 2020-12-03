@@ -3,10 +3,12 @@
     width: 158px;
 }
 .table-striped{
-    margin-bottom: 300px;
+    /* margin-bottom: 300px; */
+    min-height: 200px;
 }
 .table-responsive{
     margin-top: 20px;
+    /* min-height: 300px; */
 }
 /*管理员页面 退出按钮选项样式 结束*/
 

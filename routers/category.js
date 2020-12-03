@@ -56,8 +56,12 @@ router.post('/add', (req,res) => {
                 })
             })
             .catch(err => {
+                let message = '分类名称不能为空';
+                if(err.errors['name'].message){
+                    message = err.errors['name'].message;
+                }
                 res.render('admin/category_err',{
-                    message:'分类名称不能为空',
+                    message:message,
                     url:'/category'
                 })
             })

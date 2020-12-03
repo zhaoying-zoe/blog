@@ -2,6 +2,7 @@ const express = require('express');// 引入express
 const router = express();// 创建实例
 const userModel = require('../models/user');// 引入user注册文档模型
 const hmac = require('../util/hmac');
+const pagination = require('../util/pagination');// 引入共通分页函数
 
 // 利用中间件验证管理员权限
 router.use('/',(req,res,next) => {
@@ -30,6 +31,7 @@ router.get('/', async (req,res) => {
 
 // 处理用户管理路由
 router.get('/user',(req,res) => {
+    /*
     // 分页分析:
     // 前提条件:得知道获取第几页,前台发送参数    page = req.query.page
     // 约定:每一页显示多少条数据                limit = 2
@@ -71,7 +73,8 @@ router.get('/user',(req,res) => {
         }
         
         // 显示用户信息
-        userModel.find({},'-password')
+        userModel.find({},'-password -__v')
+        .sort({_id:-1})
         .limit(limit)
         .skip(skip)
         .then(data=>{
@@ -89,7 +92,30 @@ router.get('/user',(req,res) => {
             console.log('get users err',err);
         })
     })
+    */
+    
 
+    const options = {
+        page:req.query.page,
+        model:userModel,
+        query:{},
+        sort:({_id:-1}),
+        projection:'-password -__v',
+    }
+    pagination(options)
+    .then(data=>{
+        // console.log(data);
+        res.render('admin/user_list',{
+            userInfo:req.userInfo,
+            users:data.docs, // 返回用户列表
+            page:data.page,// 返回当前页
+            list:data.list,// 返回分页个数
+            pages:data.pages,// 返回总页数
+        })
+    })
+    .catch(err=>{
+        console.log('get users err',err);
+    })
 
 
 })
