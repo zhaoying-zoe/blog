@@ -10,24 +10,29 @@
     <table class="table table-striped">
         <thead>
             <tr>
-            <th>#</th>
-            <th>名称</th>
-            <th>排序</th>
-            <th>操作</th>
+            <th>分类ID</th>
+            <th>分类名称</th>
+            <th>分类排序</th>
+            <th>分类操作</th>
             </tr>
         </thead>
         <tbody>
+            {% for category in categories %}
             <tr>
-                <td>111</td>
-                <td>HTML</td>
-                <td>0</td>
+                <td>{{ category._id.toString() }}</td>
+                <td>{{ category.category_name }}</td>
+                <td>{{ category.category_order }}</td>
                 <td>
-                    <a href="javascript:;">编辑</a>
-                    <a href="javascript:;">删除</a>
+                    <a href="/category/edit/{{category._id.toString()}}">编辑</a>
+                    <a href="/category/delete/{{category._id.toString()}}" class="del">删除</a>
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
+
+    <!-- 分页结构 -->
+    {% include './pagination.html' %}
 </div>
 
 {% endblock %}

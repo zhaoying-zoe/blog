@@ -2,11 +2,11 @@
 const mongoose = require('mongoose');
 // 4.1生成文档模型
 const CategorySchema = new mongoose.Schema({
-    name:{
+    category_name:{
         type:String,
         required:[true,'分类名称不能为空'],
     },
-    order:{
+    category_order:{
         type:Number,
         default:0,
     }

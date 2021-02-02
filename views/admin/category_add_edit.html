@@ -1,0 +1,57 @@
+{% extends './layout.html' %}
+
+{% block header %}
+	{% if category %}
+		编辑分类
+	{% else %}
+		新增分类
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+<!-- 采用form表单的action属性,进行提交数据 -->
+<!-- 不要忘了写name属性,很重要的 -->
+	{% if category %}
+		<form class="form-horizontal" action="/category/edit" method="post">
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">分类名称</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="category_name" name="category_name" placeholder="分类名称" value="{{ category.category_name }}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="order" class="col-sm-2 control-label">排序</label>
+				<div class="col-sm-6">
+					<input type="number" class="form-control" id="category_order" name="category_order" placeholder="排序" value="{{ category.category_order }}">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="hidden" name="category_id" value="{{category._id.toString()}}">
+					<button type="submit" class="btn btn-primary">提交</button>
+				</div>
+			</div>
+		</form>
+	{% else %}
+		<form class="form-horizontal" action="/category/add" method="post">
+			<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">分类名称</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="category_name" name="category_name" placeholder="分类名称">
+			</div>
+			</div>
+			<div class="form-group">
+			<label for="order" class="col-sm-2 control-label">排序</label>
+			<div class="col-sm-6">
+				<input type="number" class="form-control" id="category_order" name="category_order" placeholder="排序">
+			</div>
+			</div>
+			<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-primary">提交</button>
+			</div>
+			</div>
+		</form>
+	{% endif %}
+
+{% endblock %}
