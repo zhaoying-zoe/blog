@@ -167,9 +167,10 @@ router.post('/edit', async (req,res) => {
 
 // 处理删除分类
 router.get('/delete/:id', async (req,res) => {
-    const { category_id } = req.params;
+    // 这里的定量id与 路由里的/delete/:id 那个id的名称应一样 否则无法删除
+    const { id } = req.params;
     try {
-        await CategoryModel.deleteOne({_id:category_id});
+        await CategoryModel.deleteOne({_id:id});
         res.render('admin/category_ok',{
             userInfo:req.userInfo,
             message:'删除分类成功',

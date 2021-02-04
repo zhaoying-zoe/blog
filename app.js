@@ -124,6 +124,8 @@ app.use('/user',require('./routers/user'));
 app.use('/admin',require('./routers/admin'));
 // 处理分类管理页面
 app.use('/category',require('./routers/category'));
+// 处理文章列表页面
+app.use('/article',require('./routers/article'));
 
 
 // 
