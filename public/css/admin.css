@@ -12,3 +12,7 @@
 }
 /*管理员页面 退出按钮选项样式 结束*/
 
+/* 富文本高度定义 */
+.ck-editor__editable{
+    min-height: 300px;
+}

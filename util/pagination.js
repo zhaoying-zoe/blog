@@ -8,7 +8,7 @@
     projection:投影
 */
 
-async function pagination(options){
+async function pagination(options) {
     // 分页分析:
     // 前提条件:得知道获取第几页,前台发送参数    page = req.query.page
     // 约定:每一页显示多少条数据                limit = 2
@@ -19,7 +19,7 @@ async function pagination(options){
     // 第n页 跳过 skip =  (page - 1) * limit 条
 
     // 获取前台传送的页码(前台传过来的是字符串,需转为数字) 如果前台不传参数或者传的参数不是数字,则需要容错处理
-    let { page, limit: limit = 3, query: query = {}, projection: projection = "", sort: sort={_id:-1}, model } = options
+    let { page, limit: limit = 3, query: query = {}, projection: projection = "", sort: sort = { _id: -1 }, model } = options
 
     page = parseInt(page)
 
@@ -34,12 +34,12 @@ async function pagination(options){
     const total = await model.countDocuments(query)
     const pages = Math.ceil(total / limit)
     //没有数据的处理
-    if (pages == 0){
+    if (pages == 0) {
         return {
-            docs:[],
-            list:[],
-            pages:0,
-            page:0
+            docs: [],
+            list: [],
+            pages: 0,
+            page: 0
         }
     }
     if (page > pages) {
@@ -63,7 +63,7 @@ async function pagination(options){
         list.push(i)
     }
     //获取当前页码的用户数据
-    const docs = await model.find(query, projection).sort(sort).skip(skip).limit(limit)    
+    const docs = await model.find(query, projection).sort(sort).skip(skip).limit(limit)
 
     return {
         docs,
