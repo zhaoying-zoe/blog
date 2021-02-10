@@ -6,20 +6,12 @@
     query:查询条件
     sort:排序
     projection:投影
+    populates
 */
 
-async function pagination(options) {
-    // 分页分析:
-    // 前提条件:得知道获取第几页,前台发送参数    page = req.query.page
-    // 约定:每一页显示多少条数据                limit = 2
-    // 
-    // 第1页 显示 第 1 2 跳过 0 条 skip(0)
-    // 第2页 显示 第 3 4 跳过 2 条 skip(0)
-    // 第3页 显示 第 5 6 跳过 4 条 skip(0)
-    // 第n页 跳过 skip =  (page - 1) * limit 条
+module.exports = async (options) => {
 
-    // 获取前台传送的页码(前台传过来的是字符串,需转为数字) 如果前台不传参数或者传的参数不是数字,则需要容错处理
-    let { page, limit: limit = 3, query: query = {}, projection: projection = "", sort: sort = { _id: -1 }, model } = options
+    let { page, limit: limit = 3, query: query = {}, projection: projection = "", sort: sort = { _id: -1 }, model, populates } = options
 
     page = parseInt(page)
 
@@ -29,7 +21,6 @@ async function pagination(options) {
     if (page < 0) {
         page = 1
     }
-
     //计算总页数
     const total = await model.countDocuments(query)
     const pages = Math.ceil(total / limit)
@@ -62,8 +53,15 @@ async function pagination(options) {
     for (let i = 1; i <= pages; i++) {
         list.push(i)
     }
+    //关联处理
+    const result = model.find(query, projection)
+    if (populates) {
+        populates.forEach(populate => {
+            result.populate(populate)
+        })
+    }
     //获取当前页码的用户数据
-    const docs = await model.find(query, projection).sort(sort).skip(skip).limit(limit)
+    const docs = await result.sort(sort).skip(skip).limit(limit)
 
     return {
         docs,
@@ -72,6 +70,3 @@ async function pagination(options) {
         page
     }
 }
-
-
-module.exports = pagination;

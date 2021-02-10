@@ -1,40 +1,40 @@
 {% extends './layout.html' %}
 
 {% block header %}
-    欢迎使用个人博客后台管理系统
+欢迎使用个人博客后台管理系统
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-info">
-                <div class="panel-body">
-                    用户数
-                </div>
-                <div class="panel-footer">
-                    {{ userCount }}
-                </div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-info">
+            <div class="panel-body">
+                用户数
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-info">
-                <div class="panel-body">
-                    分类数
-                </div>
-                <div class="panel-footer">
-                    11
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-info">
-                <div class="panel-body">
-                    文章数
-                </div>
-                <div class="panel-footer">
-                    11
-                </div>
+            <div class="panel-footer">
+                {{ userCount }}
             </div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="panel panel-info">
+            <div class="panel-body">
+                分类数
+            </div>
+            <div class="panel-footer">
+                {{ categoryCount }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-info">
+            <div class="panel-body">
+                文章数
+            </div>
+            <div class="panel-footer">
+                {{ articleCount }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

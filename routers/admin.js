@@ -1,36 +1,44 @@
 const express = require('express');// 引入express
 const router = express();// 创建实例
-const userModel = require('../models/user');// 引入user注册文档模型
-const hmac = require('../util/hmac');
+const UserModel = require('../models/user');// 引入user注册文档模型
+const CategoryModel = require('../models/user');// 引入 分类 注册文档模型
+const ArticleModel = require('../models/user');// 引入 文章 注册文档模型
 const pagination = require('../util/pagination');// 引入共通分页函数
+const hmac = require('../util/hmac');
 
 // 利用中间件验证管理员权限
-router.use('/',(req,res,next) => {
+router.use('/', (req, res, next) => {
     // 验证管理员权限
-    if(req.userInfo.isAdmin){
+    if (req.userInfo.isAdmin) {
         next();
-    }else{
+    } else {
         // res.send('request err ');
-        res.render('admin/err',{
+        res.render('admin/err', {
             // 把保存的信息携带到前台
         });
     }
 })
 
 // 处理管理员页面
-router.get('/', async (req,res) => {
+router.get('/', async (req, res) => {
     //获取用户总算
-    const userCount = await userModel.estimatedDocumentCount();
+    const userCount = await UserModel.estimatedDocumentCount();
+    //获取分类总算
+    const categoryCount = await CategoryModel.estimatedDocumentCount();
+    //获取文章总算
+    const articleCount = await ArticleModel.estimatedDocumentCount();
 
     // 管理员页面
-    res.render('admin/index',{
-        userInfo:req.userInfo,
-        userCount:userCount, // 用户总数
+    res.render('admin/index', {
+        userInfo: req.userInfo,
+        userCount, // 用户总数
+        categoryCount, // 分类总算
+        articleCount, // 文章总算
     });
 })
 
 // 处理用户管理路由
-router.get('/user',(req,res) => {
+router.get('/user', (req, res) => {
     /*
     // 分页分析:
     // 前提条件:得知道获取第几页,前台发送参数    page = req.query.page
@@ -48,16 +56,16 @@ router.get('/user',(req,res) => {
         page = 1
     }
     //上一页边界控制
-	if(page == 0){
-		page = 1
-	}
+    if(page == 0){
+        page = 1
+    }
     // 限制条数
     const limit = 2;
 
 
 
     // 下一页边界控制
-    userModel.countDocuments((err,counts) => {
+    UserModel.countDocuments((err,counts) => {
         const pages = Math.ceil(counts / limit);// 统计共有多少页数据 向上取整
         
         if(page >= pages){
@@ -73,7 +81,7 @@ router.get('/user',(req,res) => {
         }
         
         // 显示用户信息
-        userModel.find({},'-password -__v')
+        UserModel.find({},'-password -__v')
         .sort({_id:-1})
         .limit(limit)
         .skip(skip)
@@ -93,34 +101,62 @@ router.get('/user',(req,res) => {
         })
     })
     */
-    
+
 
     const options = {
-        page:req.query.page,
-        model:userModel,
-        query:{},
-        sort:({_id:-1}),
-        projection:'-password -__v',
+        page: req.query.page,
+        model: UserModel,
+        query: {},
+        sort: ({ _id: -1 }),
+        projection: '-password -__v',
     }
     pagination(options)
-    .then(data=>{
-        // console.log(data);
-        res.render('admin/user_list',{
-            userInfo:req.userInfo,
-            users:data.docs, // 返回用户列表
-            page:data.page,// 返回当前页
-            list:data.list,// 返回分页个数
-            pages:data.pages,// 返回总页数
+        .then(data => {
+            // console.log(data);
+            res.render('admin/user_list', {
+                userInfo: req.userInfo,
+                users: data.docs, // 返回用户列表
+                page: data.page,// 返回当前页
+                list: data.list,// 返回分页个数
+                pages: data.pages,// 返回总页数
+            })
         })
-    })
-    .catch(err=>{
-        console.log('get users err',err);
-    })
+        .catch(err => {
+            console.log('get users err', err);
+        })
 
 
 })
 
 
+//显示修改密码页面
+router.get("/updataPwd", async (req, res) => {
+    res.render('admin/updataPwd', {
+        userInfo: req.userInfo,
+    })
+})
+
+//处理修改密码
+router.post("/updataPwd", async (req, res) => {
+    const { password } = req.body
+    try {
+        //修改密码
+        await UserModel.updateOne({ _id: req.userInfo._id }, { password: hmac(password) })
+        //退出登录
+        req.session.destroy();
+        res.render('admin/success', {
+            userInfo: req.userInfo,
+            message: '修改密码成功,请重新登录',
+            url: '/'
+        })
+    } catch (e) {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '服务器端错误',
+            url: '/admins/password'
+        })
+    }
+})
 
 // 导出路由
 module.exports = router;

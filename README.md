@@ -1,5 +1,5 @@
 # blog
-blog for ZH
+blog for ZY
 
 ## Technology stack
 ### nodejs 充当后台服务
@@ -10,6 +10,7 @@ blog for ZH
 ### jquery@3
 ### swig模板引擎
 ### 保存用户状态信息:利用中间件插件生成cookies并存到req.cookies上
+### moment:格式化日期(能把日期正常显示)
 
 ## Folder description
 ### views: 模板
@@ -17,3 +18,12 @@ blog for ZH
 ### models: 定义文档模型
 ### db: 数据库
 ### public: 静态资源文件夹
+
+
+
+
+## 处理编辑分类|文章：
+### 1. 给后台传相应的id(某篇文章的id或者分类的id)
+### 2. 后台接收id然后返回此id的相关数据给前台
+### 3. 前台修改后进行提交
+### 4. 后台根据相关

@@ -1,7 +1,7 @@
 {% extends './layout.html' %}
 
 {% block header %}
-    文章列表
+文章列表
 {% endblock %}
 
 {% block content %}
@@ -10,13 +10,13 @@
     <table class="table table-striped">
         <thead>
             <tr>
-            <th>文章ID</th>
-            <th>文章名称</th>
-            <th>作者</th>
-            <th>文章分类</th>
-            <th>创建时间</th>
-            <th>点击量</th>
-            <th>操作</th>
+                <th>文章ID</th>
+                <th>文章名称</th>
+                <th>作者</th>
+                <th>文章分类</th>
+                <th>创建时间</th>
+                <th>点击量</th>
+                <th>操作</th>
             </tr>
         </thead>
         <tbody>
@@ -24,14 +24,15 @@
             <tr>
                 <td>{{ article._id.toString() }}</td>
                 <td>{{ article.title }}</td>
-                <td>{{ article.user }}</td>
-                <td>{{ article.category }}</td>
-                <td>{{ article.createdAt }}</td>
+                <td>{{ article.user.username }}</td>
+                <td>{{ article.category.category_name }}</td>
+                <!-- mongoose自带的时间处理 <td>{{ article.createdAt | date('Y年m月d日 H:m:s',-8*60) }}</td> -->
+                <td>{{ article.createdTime }}</td>
                 <td>{{ article.click }}</td>
                 <td>
-                    <a href="/detail/{{category._id.toString()}}">查看</a>
-                    <a href="/article/edit/{{category._id.toString()}}">编辑</a>
-                    <a href="/article/delete/{{category._id.toString()}}" class="del">删除</a>
+                    <a href="/detail/{{article._id.toString()}}">查看</a>
+                    <a href="/article/edit/{{article._id.toString()}}">编辑</a>
+                    <a href="/article/delete/{{article._id.toString()}}" class="del">删除</a>
                 </td>
             </tr>
             {% endfor %}

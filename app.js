@@ -25,18 +25,18 @@ app.use(express.static('public'));
 
 /* -----------------------连接数据库开始------------------------ */
 // 连接到数据库
-mongoose.connect('mongodb://127.0.0.1:27017/blog', {useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect('mongodb://127.0.0.1:27017/blog', { useNewUrlParser: true, useUnifiedTopology: true });
 //生成db
 // mongoose.set('useFindAndModify', false);
 const db = mongoose.connection;
 //连接数据库失败
-db.on('error', (err)=>{
-	console.log('connect mongodb err::',err)
+db.on('error', (err) => {
+	console.log('connect mongodb err::', err)
 	throw err;
 });
 //连接数据库成功
-db.once('open', function() {
-  	console.log('connect mongodb success !!');
+db.once('open', function () {
+	console.log('connect mongodb success !!');
 })
 /* -----------------------连接数据库结束------------------------ */
 
@@ -90,25 +90,25 @@ app.use('',(req,res,next) => {
 
 // 配置session
 app.use(session({
-    //设置cookie名称
-    name:'zyid',
-    //用它来对session cookie签名，防止篡改
-    secret:'zoe',
-    //强制保存session即使它并没有变化
-    resave: true,
-    //强制将未初始化的session存储
-    saveUninitialized: true,
-    //如果为true,则每次请求都更新cookie的过期时间
-    rolling:true,
-    //cookie过期时间 1天
-    cookie:{maxAge:1000*60*60*24},
-    //设置session存储在数据库中
-    store:new MongoStore({ mongooseConnection: mongoose.connection })
+	//设置cookie名称
+	name: 'zyid',
+	//用它来对session cookie签名，防止篡改
+	secret: 'zoe',
+	//强制保存session即使它并没有变化
+	resave: true,
+	//强制将未初始化的session存储
+	saveUninitialized: true,
+	//如果为true,则每次请求都更新cookie的过期时间
+	rolling: true,
+	//cookie过期时间 1天
+	cookie: { maxAge: 1000 * 60 * 60 * 24 },
+	//设置session存储在数据库中
+	store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
-app.use('',(req,res,next) => {
+app.use('', (req, res, next) => {
 	// 把cookie信息保存到req.userInfo上,这样的话所有的路由都能通过req.userInfo拿到用户状态信息
 	req.userInfo = req.session.userInfo || {};
-	
+
 	next();
 })
 
@@ -117,18 +117,18 @@ app.use('',(req,res,next) => {
 
 // 用app.use(PATH,router对象)来使用导出的router对象
 // 处理主页路由
-app.use('/',require('./routers/index'));
+app.use('/', require('./routers/index'));
 // 处理注册、登陆路由
-app.use('/user',require('./routers/user'));
+app.use('/user', require('./routers/user'));
 // 处理管理员页面
-app.use('/admin',require('./routers/admin'));
+app.use('/admin', require('./routers/admin'));
 // 处理分类管理页面
-app.use('/category',require('./routers/category'));
+app.use('/category', require('./routers/category'));
 // 处理文章列表页面
-app.use('/article',require('./routers/article'));
+app.use('/article', require('./routers/article'));
 
 
 // 
 app.listen(port, () => {
-    console.log(`server is running at http://127.0.0.1:${port}`);
+	console.log(`server is running at http://127.0.0.1:${port}`);
 })
