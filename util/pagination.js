@@ -11,7 +11,7 @@
 
 module.exports = async (options) => {
 
-    let { page, limit: limit = 3, query: query = {}, projection: projection = "", sort: sort = { _id: -1 }, model, populates } = options
+    let { page, limit: limit = 4, query: query = {}, projection: projection = "", sort: sort = { _id: -1 }, model, populates } = options
 
     page = parseInt(page)
 

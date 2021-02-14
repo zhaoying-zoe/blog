@@ -1,0 +1,27 @@
+<!-- 文章列表 -->
+<div id='article-wrap'>
+    {% for article in articles %}
+    <div class="panel panel-default panel-article">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a href="/detail/{{ article._id.toString() }}" class="link" target="_blank">{{ article.title }}</a>
+            </h3>
+        </div>
+        <div class="panel-body">{{ article.intro }}</div>
+        <div class="panel-footer">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <span class="panel-footer-text text-muted">{{ article.user.username }}</span>
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            <span class="panel-footer-text text-muted">{{ article.category.category_name }}</span>
+            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+            <span class="panel-footer-text text-muted">{{ article.createdTime }}</span>
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            <span class="panel-footer-text text-muted"><em>{{ article.click }}</em>已阅读</span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<nav aria-label="Page navigation" id="article_page">
+    <!-- 引入分页器 -->
+    {% include './pagination.html' %}
+</nav>

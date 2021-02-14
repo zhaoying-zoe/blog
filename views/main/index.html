@@ -42,67 +42,8 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<!-- 文章列表 -->
-{% for article in articles %}
-<div class="panel panel-default panel-article">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            <a href="/detail/{{ article._id.toString() }}" class="link" target="_blank">{{ article.title }}</a>
-        </h3>
-    </div>
-    <div class="panel-body">{{ article.intro }}</div>
-    <div class="panel-footer">
-        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-        <span class="panel-footer-text text-muted">{{ article.user.username }}</span>
-        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-        <span class="panel-footer-text text-muted">{{ article.category.categoey_name }}</span>
-        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-        <span class="panel-footer-text text-muted">{{ article.createTime }}</span>
-        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-        <span class="panel-footer-text text-muted"><em>{{ article.click }}</em>已阅读</span>
-    </div>
-</div>
-{% endfor %}
-<!-- 分页结构 -->
-{% if pages >1 %}
-<nav aria-label="Page navigation" id="article-page">
-    <ul class="pagination">
-        {% if page == 1 %}
-        <li class="disabled">
-            <a href="javascript:;" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        {% else %}
-        <li>
-            <a href="javascript:;" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        {% endif %}
-        {% for i in list %}
-        {% if i == page %}
-        <li class="active"><a href="javascript:;">{{ i }}</a></li>
-        {% else %}
-        <li><a href="javascript:;">{{ i }}</a></li>
-        {% endif %}
-        {% endfor %}
-        {% if page == pages %}
-        <li class="disabled">
-            <a href="javascript:;" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-        {% else %}
-        <li>
-            <a href="javascript:;" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-        {% endif %}
-    </ul>
-</nav>
-{% else %}
+<!-- 引入文章结构+分页器 -->
+{% include './article_list.html' %}
 
 {% block footer %}
 <script src="/js/index.js"></script>

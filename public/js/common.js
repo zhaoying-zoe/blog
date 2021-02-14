@@ -1,5 +1,5 @@
 ; (function ($) {
-    // 1.登录注册面板切换
+    // 1. 登录注册面板切换
     const $userLogin = $('#form-login');// 登陆面板
     const $userInfo = $('#user-info');// 用户面板
     const $userRegister = $('#form-registered');// 注册面板
@@ -27,7 +27,7 @@
         // 2.1 获取注册信息
         let username = $userRegister.find('[id="username"]').val();// 用户名
         let password = $userRegister.find('[id="password1"]').val();// 密码
-        let repassword = $userRegister.find('[id="password2"]').val();// 重复密码
+        let rePassword = $userRegister.find('[id="password2"]').val();// 重复密码
         let $errMsg = $userRegister.find('.err');
         let err = '';
         // 2.2 验证数据合法性
@@ -40,7 +40,7 @@
         } else if (!passwordReg.test(password)) {
             err = '密码是3-6位任意字符';
             // 验证重复密码
-        } else if (password != repassword) {
+        } else if (password != rePassword) {
             err = '两次密码输入的不一致,请核对';
             // 验证通过
         } else {
@@ -137,7 +137,7 @@
         }
     })
 
-    // 4.用户退出逻辑
+    // 4. 用户退出逻辑
     $('#logout').on('click', function () {
         $.ajax({
             url: '/user/logout',
@@ -155,7 +155,80 @@
             })
     })
 
-    // 5.分页处理
-    var $articlePage = $('#article-page');
-    $articlePage.pagination();
-})(jQuery)
+    // 5. 构建文章列表的html
+    function buildArticleHtml(docs) {
+        let html = '';
+        for (let i = 0; i < docs.length; i++) {
+            html += `<div class="panel panel-default panel-article">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a href="/detail/${docs[i]._id.toString()}" class="link" target="_blank">${docs[i].title}</a>
+                    </h3>
+                </div>
+                <div class="panel-body">${docs[i].intro}</div>
+                <div class="panel-footer">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <span class="panel-footer-text text-muted">${docs[i].user.username}</span>
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    <span class="panel-footer-text text-muted">${docs[i].category.category_name}</span>
+                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                    <span class="panel-footer-text text-muted">${docs[i].createdTime}</span>
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    <span class="panel-footer-text text-muted"><em>${docs[i].click}</em>已阅读</span>
+                </div>
+            </div>`
+        }
+        return html;
+    }
+    // 6. 构建分页器的html
+    function buildPaginationHtml(list, page, pages) {
+        let html = '';
+        if (page == 1) {
+            html += `<li class="disabled">`
+        } else {
+            html += `<li>`
+        }
+        html += `   <a href="javascript:;" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>`
+
+        for (var i = 0, len = list.length; i < len; i++) {
+            if (list[i] == page) {
+                html += `<li class="active">`
+            } else {
+                html += `<li>`
+            }
+            html += `<a href="javascript:;">${list[i]}</a></li>`
+        }
+        if (page == pages) {
+            html += `<li class="disabled">`
+        } else {
+            html += `<li>`
+        }
+        html += `   <a href="javascript:;" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>`
+        return html;
+    }
+
+    // 7. 调用分页jquery插件
+    let $articlePage = $('#article_page');
+    $articlePage.on('get-data', function (ev, data) {
+        // 构建文章列表html并且渲染
+        let articleHtml = buildArticleHtml(data.docs);// 调用函数 并 接收return的html代码
+        $('#article-wrap').html(articleHtml);
+        //构建分页器html并且渲染
+        if (data.pages <= 1) {
+            $articlePage.find('.pagination').html('')
+        } else {
+            let paginationHtml = buildPaginationHtml(data.list, data.page, data.pages)
+            $articlePage.find('.pagination').html(paginationHtml)
+        }
+    })
+    //调用分页jquery插件
+    $articlePage.pagination({
+        url: "/articlesList"
+    })
+})(jQuery);

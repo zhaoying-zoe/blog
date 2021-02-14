@@ -1,12 +1,12 @@
 ; (function ($) {
     $.fn.extend({
         // 首页分页共同逻辑
-        pagination: function () {
+        pagination: function (options) {
             return this.each(function () {
                 // 1. 获取当前jq对象
                 var $this = $(this);
                 // 2. 点击事件
-                $this.find('a').on('click', function () {
+                $this.on('click', 'a', function () {
                     // 0. 获取当前页码 并 转为数字类型
                     var currentPage = $this.find('li.active a').html();
                     currentPage = parseInt(currentPage);
@@ -41,7 +41,7 @@
                     }
                     // 7. 发送ajax请求获取数据
                     $.ajax({
-                        url: '/articlesList',
+                        url: options.url,
                         data: {
                             page: page,
                         },
