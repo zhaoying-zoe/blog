@@ -29,11 +29,28 @@ router.get('/', async (req, res) => {
     */
     // 结构赋值接收返回的对象数据
     const { categories, topArticles, } = await getCommonData();
+    // 获取首页分页数据
+    const result = await ArticleModel.findArticles(req);
     res.render('main/index', {
         userInfo: req.userInfo,// 把保存的信息携带到前台
         categories,
         topArticles,
+        articles: result.docs,
+        list: result.list,
+        pages: result.pages,
+        page: result.page,
     });
+})
+
+// 处理首页分页数据
+router.get("/articlesList", async (req, res) => {
+    // 获取分类
+    const result = await ArticleModel.findArticles(req);
+    res.json({
+        code: 0,
+        message: '获取分页数据成功',
+        data: result,
+    })
 })
 
 
