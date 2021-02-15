@@ -26,8 +26,11 @@ app.use(express.static('public'));
 /* -----------------------连接数据库开始------------------------ */
 // 连接到数据库
 mongoose.connect('mongodb://127.0.0.1:27017/blog', { useNewUrlParser: true, useUnifiedTopology: true });
+
+// 避免使用findOneAndUpdate出现警告
+mongoose.set('useFindAndModify', false);
+
 //生成db
-// mongoose.set('useFindAndModify', false);
 const db = mongoose.connection;
 //连接数据库失败
 db.on('error', (err) => {

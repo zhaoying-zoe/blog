@@ -1,0 +1,4 @@
+/* 控制文章详情里的图片大小 */
+.detail-panel .panel-body .image img{
+    width:100%;
+}

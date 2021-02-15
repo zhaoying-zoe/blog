@@ -22,8 +22,8 @@ module.exports = async (options) => {
         page = 1
     }
     //计算总页数
-    const total = await model.countDocuments(query)
-    const pages = Math.ceil(total / limit)
+    const total = await model.countDocuments(query);
+    const pages = Math.ceil(total / limit);
     //没有数据的处理
     if (pages == 0) {
         return {

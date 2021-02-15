@@ -1,37 +1,23 @@
 {% extends './layout.html' %}
-
-{% block title %}
-    我的博客
-{% endblock %}
-
+{% block title %}{{article.title}}{% endblock %}
 {% block head %}
-    <link rel="stylesheet" href="/css/detail.css">
+<link rel="stylesheet" href="/css/detail.css">
 {% endblock %}
-
 {% block content %}
-    <!-- 文章列表 -->
-    <div class="panel panel-default panel-article">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                <a href="javascript:;" class="link">移动设备优先</a>
-            </h3>
-        </div>
-        <div class="panel-body">
-            在 Bootstrap 2 中，我们对框架中的某些关键部分增加了对移动设备友好的样式。而在 Bootstrap 3 中，我们重写了整个框架，使其一开始就是对移动设备友好的。这次不是简单的增加一些可选的针对移动设备的样式，而是直接融合进了框架的内核中。也就是说，Bootstrap 是移动设备优先的。针对移动设备的样式融合进了框架的每个角落，而不是增加一个额外的文件。
-        </div>
-        <div class="panel-footer">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <span class="panel-footer-text text-muted">ZhaoYing</span>
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            <span class="panel-footer-text text-muted">JavaScript</span>
-            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-            <span class="panel-footer-text text-muted">2018-13-32</span>
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-            <span class="panel-footer-text text-muted"><em>23</em>已阅读</span>
-        </div>
+<div class="panel panel-default custom-panel detail-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{article.title}}</h3>
+        <p class="sub-title">
+            <span class="text-muted">{{article.category.name}}</span>
+            <span class="text-muted">{{article.createdTime}}</span>
+            <span class="text-muted"><em>{{article.click}}</em>人已阅读</span>
+        </p>
     </div>
-{% endblock %}
-
-{% block footer %}
-    <script src="/js/detail.js"></script>
+    <div class="panel-body">
+        <div class="well">
+            <strong>简介:</strong>{{article.intro}}
+        </div>
+        <p>{{article.content | safe }}</p>
+    </div>
+</div>
 {% endblock %}

@@ -44,8 +44,13 @@ router.get('/', async (req, res) => {
 
 // 处理首页分页数据
 router.get("/articlesList", async (req, res) => {
+    let query = {};
+    let id = req.query.id;
+    if (id) {
+        query.category = id;
+    }
     // 获取分类
-    const result = await ArticleModel.findArticles(req);
+    const result = await ArticleModel.findArticles(req, query);
     res.json({
         code: 0,
         message: '获取分页数据成功',
@@ -56,21 +61,39 @@ router.get("/articlesList", async (req, res) => {
 
 // 显示列表页
 router.get('/list/:id', async (req, res) => {
-    const id = req.params;//id是一个对象 id = {id:6023d2376be6fc4668f06ec1}
-    const { categories, topArticles, } = await getCommonData();
+    const { id } = req.params;//id是一个对象 id = {id:6023d2376be6fc4668f06ec1};
+    const commonDataPromise = getCommonData();
+    const articlesPromise = ArticleModel.findArticles(req, { category: id });
+    const { categories, topArticles, } = await commonDataPromise;
+    const result = await articlesPromise;
     res.render('main/list', {
         userInfo: req.userInfo,// 把保存的信息携带到前台
         categories,
         currentCategory: id,
         topArticles,
+        articles: result.docs,
+        list: result.list,
+        pages: result.pages,
+        page: result.page,
     });
 })
 
 
 // 显示详情页
-router.get('/detail', (req, res) => {
+router.get('/detail/:id', async (req, res) => {
+    let { id } = req.params;
+    const commonDataPromise = getCommonData();
+    const articlesPromise = ArticleModel.findOneAndUpdate({ _id: id }, { $inc: { click: 1 } })
+        .populate({ path: 'user', select: 'username' })
+        .populate({ path: 'category', select: 'category_name' })
+    const { categories, topArticles, } = await commonDataPromise;
+    const article = await articlesPromise;
     res.render('main/detail', {
         userInfo: req.userInfo,
+        categories,
+        currentCategory: article.category._id,
+        topArticles,
+        article,
     });
 })
 

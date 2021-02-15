@@ -39,14 +39,21 @@
                     if (currentPage == page) {
                         return false;
                     }
+                    // 7. 存分页器里的id,获取相关分类下的文章
+                    let data = {
+                        page: page
+                    }
+                    let id = $this.data('id')
+                    if (id) {
+                        data.id = id
+                    }
                     // 7. 发送ajax请求获取数据
                     $.ajax({
                         url: options.url,
-                        data: {
-                            page: page,
-                        },
+                        data: data,
                         dataType: 'json',
                         success: function (result) {
+                            console.log(result.data);
                             $this.trigger('get-data', result.data);
                         }
                     })
