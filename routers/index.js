@@ -1,5 +1,12 @@
 const express = require('express');// 引入express
 const router = express();// 创建实例
+
+
+const Comment = require('../models/comment');// 引入comment注册文档模型
+
+// 引入处理时间的moment
+const moment = require('moment');
+
 const CategoryModel = require('../models/category');// 引入user注册文档模型
 const ArticleModel = require('../models/article');// 引入user注册文档模型
 
@@ -51,10 +58,36 @@ router.get("/articlesList", async (req, res) => {
     }
     // 获取分类
     const result = await ArticleModel.findArticles(req, query);
+    const docs = result.docs.map(item => {
+        // 先把json对象转字符串,再转为json对象
+        const obj = JSON.parse(JSON.stringify(item));
+        // 重新设置时间格式,使前台能够正常显示时间
+        obj.createdTime = moment(this.createdAt).format('YYYY-MM-DD HH:mm:ss');
+        return obj;
+    })
+    result.docs = docs;
+
     res.json({
         code: 0,
         message: '获取分页数据成功',
         data: result,
+    })
+})
+
+
+//获取前台评论分页数据
+router.get("/commentsList", async (req, res) => {
+    let query = {}
+    let id = req.query.id
+    if (id) {
+        query.article = id
+    }
+    //获取分类
+    const result = await Comment.findPaginationComments(req, query)
+    res.json({
+        code: 0,
+        message: '获取分页数据成功',
+        data: result
     })
 })
 
@@ -83,7 +116,8 @@ router.get('/list/:id', async (req, res) => {
 router.get('/detail/:id', async (req, res) => {
     let { id } = req.params;
     const commonDataPromise = getCommonData();
-    const articlesPromise = ArticleModel.findOneAndUpdate({ _id: id }, { $inc: { click: 1 } })
+    // { new: true } :返回更新后的数据   { $inc: { click: 1 } }的意思是,"click"的原有数值上面 +1
+    const articlesPromise = ArticleModel.findOneAndUpdate({ _id: id }, { $inc: { click: 1 } }, { new: true })
         .populate({ path: 'user', select: 'username' })
         .populate({ path: 'category', select: 'category_name' })
     const { categories, topArticles, } = await commonDataPromise;

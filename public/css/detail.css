@@ -2,3 +2,22 @@
 .detail-panel .panel-body .image img{
     width:100%;
 }
+
+/* 提交按钮 */
+#btn-sub-comment{
+    line-height: 58px;
+    width: 100%;
+    font-size: 26px;
+}
+
+/* 评论区域 */
+#comment-textarea{
+    resize: none;
+}
+
+/* 提示登陆 */
+.comment-login-tips{
+    padding: 15px;
+}
+
+

@@ -213,7 +213,25 @@
         return html;
     }
 
-    // 7. 调用分页jquery插件
+    // 7. 构建评论html
+    function buildCommentHtml(docs) {
+        var html = ''
+        for (var i = 0, len = docs.length; i < len; i++) {
+            html += `<div class="col-md-12">
+                        <div class="text-muted comment-item">
+                            <p>${docs[i].content}</p>
+                            <p>
+                            <span>${docs[i].user.username}</span> 发表于
+                                <span>${docs[i].createdTime}</span>
+                            </p>
+                        </div>
+                    </div>`
+        }
+
+        return html
+    }
+
+    // 8. 调用分页jquery插件
     let $articlePage = $('#article_page');
     $articlePage.on('get-data', function (ev, data) {
         // 构建文章列表html并且渲染
@@ -227,8 +245,25 @@
             $articlePage.find('.pagination').html(paginationHtml)
         }
     })
+    var $commentPage = $('#comment-page')
+    $commentPage.on('get-data', function (ev, data) {
+        //构建评论列表html并且渲染
+        var commentHtml = buildCommentHtml(data.docs)
+        $('#comment-wrap').html(commentHtml)
+        //构建分页器html并且渲染
+        if (data.pages <= 1) {
+            $commentPage.find('.pagination').html('')
+        } else {
+            var paginationHtml = buildPaginationHtml(data.list, data.page, data.pages)
+            $commentPage.find('.pagination').html(paginationHtml)
+        }
+    })
     //调用分页jquery插件
     $articlePage.pagination({
         url: "/articlesList"
+    })
+    //调用分页jquery插件
+    $commentPage.pagination({
+        url: "/commentsList"
     })
 })(jQuery);

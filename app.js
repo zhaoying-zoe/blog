@@ -129,7 +129,8 @@ app.use('/admin', require('./routers/admin'));
 app.use('/category', require('./routers/category'));
 // 处理文章列表页面
 app.use('/article', require('./routers/article'));
-
+// 处理评论路由
+app.use('/comments', require('./routers/comment'));
 
 // 
 app.listen(port, () => {
