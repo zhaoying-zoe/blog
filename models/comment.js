@@ -47,6 +47,6 @@ commentSchema.statics.findPaginationComments = async function (req, query) {
     return result
 }
 
-const Comment = mongoose.model('comment', commentSchema)
+const CommentModel = mongoose.model('comment', commentSchema)
 
-module.exports = Comment
+module.exports = CommentModel;

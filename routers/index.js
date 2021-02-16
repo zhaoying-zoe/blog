@@ -1,8 +1,7 @@
 const express = require('express');// 引入express
 const router = express();// 创建实例
 
-
-const Comment = require('../models/comment');// 引入comment注册文档模型
+const CommentModel = require('../models/comment');// 引入comment注册文档模型
 
 // 引入处理时间的moment
 const moment = require('moment');
@@ -83,7 +82,7 @@ router.get("/commentsList", async (req, res) => {
         query.article = id
     }
     //获取分类
-    const result = await Comment.findPaginationComments(req, query)
+    const result = await CommentModel.findPaginationComments(req, query)
     res.json({
         code: 0,
         message: '获取分页数据成功',
@@ -121,7 +120,7 @@ router.get('/detail/:id', async (req, res) => {
         .populate({ path: 'user', select: 'username' })
         .populate({ path: 'category', select: 'category_name' })
     // 获取评论
-    const commentPromise = Comment.findPaginationComments(req, { article: id });
+    const commentPromise = CommentModel.findPaginationComments(req, { article: id });
     const { categories, topArticles, } = await commonDataPromise;
     const article = await articlesPromise;
     const commentData = await commentPromise;// 拿评论数据

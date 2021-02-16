@@ -1,6 +1,7 @@
 const express = require('express');// 引入express
 const router = express();// 创建实例
 const UserModel = require('../models/user');// 引入user注册文档模型
+const CommentModel = require('../models/comment');// 引入CommentModel注册文档模型
 const CategoryModel = require('../models/user');// 引入 分类 注册文档模型
 const ArticleModel = require('../models/user');// 引入 文章 注册文档模型
 const pagination = require('../util/pagination');// 引入共通分页函数
@@ -157,6 +158,40 @@ router.post("/updataPwd", async (req, res) => {
         })
     }
 })
+
+
+//显示评论页面
+router.get('/comment', async (req, res) => {
+    const result = await CommentModel.findPaginationComments(req)
+    res.render('admin/comment_list', {
+        userInfo: req.userInfo,
+        comments: result.docs,
+        list: result.list,
+        pages: result.pages,
+        page: result.page,
+        url: '/admin/comment'
+    })
+})
+
+//删除评论
+router.get('/comment/delete/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await CommentModel.deleteOne({ _id: id });
+        res.render('admin/success', {
+            userInfo: req.userInfo,
+            message: '删除评论成功',
+            url: '/admin/comment'
+        })
+    } catch (e) {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '服务器端错误',
+            url: '/admin/comment'
+        })
+    }
+})
+
 
 // 导出路由
 module.exports = router;

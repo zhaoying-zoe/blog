@@ -63,9 +63,9 @@
 					<div class="user-panel" id='user-info'>
 						欢迎<span> {{ userInfo.username }}</span>
 						{% if userInfo.isAdmin %}
-						<a class="link" href="/admin">进入管理中心</a>
+						<a class="link" href="/admin" target="_blank">进入管理中心</a>
 						{% else %}
-						<a class="link" href="/home">进入个人中心</a>
+						<a class="link" href="/home" target="_blank">进入个人中心</a>
 						{% endif %}
 						<a class="link" href="javascript:;" id='logout'>退出</a>
 						<!-- 错误信息提示 -->

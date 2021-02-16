@@ -21,7 +21,7 @@
         var id = $(this).data('id');
         $.ajax({
             type: 'POST',
-            url: '/comments',
+            url: '/comment',
             data: {
                 content: commentVal,
                 article: id
