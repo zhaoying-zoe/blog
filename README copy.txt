@@ -19,3 +19,19 @@ blog for ZH
 
     4.服务器中没有保存客户端的状态，客户端必须每次带上自己的状态去请求服务器
 
+
+
+    ## 处理编辑分类|文章：
+    ### 1. 给后台传相应的id(某篇文章的id或者分类的id)
+    ### 2. 后台接收id然后返回此id的相关数据给前台
+    ### 3. 前台修改后进行提交
+    ### 4. 后台根据相关
+
+    ## 分页相关
+    ### 前台分页:ajax请求
+    ### 后台(管理员页面)分页:路由article?page=2;
+
+    ## 删除评论
+    ### 1. 确实是使用本人账号删除评论
+    ###     // user: req.userInfo._id : 确保是本人删除了评论
+    ###     const result = await CommentModel.deleteOne({ _id: id, user: req.userInfo._id });
