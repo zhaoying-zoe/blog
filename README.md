@@ -31,3 +31,8 @@ blog for ZY
 ## 分页相关
 ### 前台分页:ajax请求
 ### 后台(管理员页面)分页:路由article?page=2;
+
+## 删除评论
+### 1. 确实是使用本人账号删除评论
+###     // user: req.userInfo._id : 确保是本人删除了评论
+###     const result = await CommentModel.deleteOne({ _id: id, user: req.userInfo._id });

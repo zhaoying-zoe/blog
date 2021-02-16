@@ -1,0 +1,18 @@
+/*个人中心页面 退出按钮选项样式 开始*/
+.container-fluid .dropdown .btn-default{
+    width: 158px;
+}
+.table-striped{
+    /* margin-bottom: 300px; */
+    min-height: 200px;
+}
+.table-responsive{
+    margin-top: 20px;
+    /* min-height: 300px; */
+}
+/*个人中心页面 退出按钮选项样式 结束*/
+
+/* 富文本高度定义 */
+.ck-editor__editable{
+    min-height: 300px;
+}

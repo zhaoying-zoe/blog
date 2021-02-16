@@ -131,6 +131,8 @@ app.use('/category', require('./routers/category'));
 app.use('/article', require('./routers/article'));
 // 处理评论路由
 app.use('/comment', require('./routers/comment'));
+// 处理个人中心
+app.use('/home', require('./routers/home'));
 
 // 
 app.listen(port, () => {
