@@ -120,14 +120,21 @@ router.get('/detail/:id', async (req, res) => {
     const articlesPromise = ArticleModel.findOneAndUpdate({ _id: id }, { $inc: { click: 1 } }, { new: true })
         .populate({ path: 'user', select: 'username' })
         .populate({ path: 'category', select: 'category_name' })
+    // 获取评论
+    const commentPromise = Comment.findPaginationComments(req, { article: id });
     const { categories, topArticles, } = await commonDataPromise;
     const article = await articlesPromise;
+    const commentData = await commentPromise;// 拿评论数据
     res.render('main/detail', {
         userInfo: req.userInfo,
         categories,
         currentCategory: article.category._id,
         topArticles,
         article,
+        comments: commentData.docs,
+        list: commentData.list,
+        pages: commentData.pages,
+        page: commentData.page,
     });
 })
 

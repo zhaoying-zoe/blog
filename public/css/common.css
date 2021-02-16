@@ -37,3 +37,8 @@
 #article-wrap{
 	min-height: 600px;
 }
+
+/* 文章标题 */
+.panel-heading .panel-title{
+    font-weight: 600;
+}

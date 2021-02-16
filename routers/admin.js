@@ -24,9 +24,9 @@ router.get('/', async (req, res) => {
     //获取用户总算
     const userCount = await UserModel.estimatedDocumentCount();
     //获取分类总算
-    const categoryCount = await CategoryModel.estimatedDocumentCount();
+    const categoryCount = await CategoryModel.countDocuments();
     //获取文章总算
-    const articleCount = await ArticleModel.estimatedDocumentCount();
+    const articleCount = await ArticleModel.countDocuments();
 
     // 管理员页面
     res.render('admin/index', {
